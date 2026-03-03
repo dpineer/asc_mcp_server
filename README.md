@@ -2,7 +2,7 @@
 
 ASC MCP Server 是一个用于处理PADS Logic原理图文件的Model Context Protocol (MCP)服务器。该服务器能够解析、修改和保存PADS Logic格式的原理图文件，支持器件更新、位置调整、网络连接管理等功能。
 
-## 功能特性
+**注意**：此服务器需要与前端检查器配合使用才能正常运行。请确保已安装并运行 [asc_mcp_cheker](https://github.com/dpineer/asc_mcp_cheker) 前端检查器。
 
 - **文件解析**：支持解析PADS Logic V3.0格式的原理图文件（.txt）和包含原理图的ZIP文件
 - **器件管理**：更新器件ID、器件类型、封装等信息
