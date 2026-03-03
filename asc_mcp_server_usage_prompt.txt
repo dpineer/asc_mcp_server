@@ -1,0 +1,49 @@
+ASC MCP Server 使用指南
+
+概述
+ASC MCP Server 是一个用于处理 PADS ASC 文件的 Model Context Protocol (MCP) 服务器。它可以解析ASC文件、获取组件信息以及添加新的组件。
+
+可用工具
+
+1. parse_asc_bom
+功能: 从 PADS ASC 文件中提取物料清单 (BOM)
+参数: 
+- file_path: ASC 文件的绝对路径
+
+示例请求:
+{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "parse_asc_bom", "arguments": {"file_path": "/path/to/your/file.asc"}}}
+
+2. get_component_info
+功能: 获取 ASC 文件中特定组件的详细属性
+参数:
+- file_path: ASC 文件的绝对路径
+- designator: 组件位号 (例如 "R1", "U1")
+
+示例请求:
+{"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "get_component_info", "arguments": {"file_path": "/path/to/your/file.asc", "designator": "U1"}}}
+
+3. add_component
+功能: 向 ASC 文件添加具有自定义属性的新组件
+参数:
+- file_path: ASC 文件的绝对路径
+- designator: 组件位号 (例如 "R2", "U3")
+- attributes: 包含组件属性的键值对字典
+
+示例请求:
+{"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "add_component", "arguments": {"file_path": "/path/to/your/file.asc", "designator": "R5", "attributes": {"Footprint": "R0603", "Part Name": "电阻 10kΩ", "Value": "10kΩ", "Tolerance": "±1%", "Add into BOM": "yes"}}}}
+
+使用方法
+1. 首先发送初始化请求:
+{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}}
+
+2. 获取可用工具列表:
+{"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}}
+
+3. 调用所需工具:
+(使用上面示例中的工具调用格式)
+
+注意事项
+- 确保提供的文件路径存在且可访问
+- designator 应遵循标准命名约定 (如 R1, R2, C1, U1 等)
+- attributes 字典可以包含任意组件属性
+- 所有操作都通过标准输入输出进行 JSON-RPC 通信
